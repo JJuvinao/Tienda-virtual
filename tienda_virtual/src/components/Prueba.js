@@ -3,10 +3,9 @@ import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 
 export default function Prueba() {
-  //boot de estado
   const [productos, setProductos] = useState([]);
+  const [carrito, setCarrito] = useState([]);
 
-  //solo para ejecutar una vez
   useEffect(() => {
     const listaProductos = localStorage.getItem("products");
     if (listaProductos) {
@@ -22,14 +21,31 @@ export default function Prueba() {
     }
   }, []);
 
+  const agregarAlCarrito = (producto) => {
+    setCarrito([...carrito, producto]);
+    alert("Producto agregado al carrito");
+  };
+
   return (
+
     <div className="product-grid">
+      <link to="/carrito">
+               
+               </link>
       {productos.map((producto) => (
-        <article key={producto.id} className="product-article">
-          <img src={producto.image} alt={producto.title} />
-          <h2>{producto.title}</h2>
-          <h3>{producto.description}</h3>
-        </article>
+        <button id="btn-articule" className="btn btn-white" key={producto.id}>
+          <article className="product-article">
+            <img src={producto.image} alt={producto.title} />
+            <h2>{producto.title}</h2>
+            <h2>${producto.price}</h2>
+            <button
+              className="btn btn-secondary"
+              onClick={() => agregarAlCarrito(producto)}
+            >
+              Comprar
+            </button>
+          </article>
+        </button>
       ))}
     </div>
   );

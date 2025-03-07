@@ -24,9 +24,15 @@ function Nav() {
     return (
         <nav className="nav">
             <ul className="nav-list">
+                <link to="/">
                 <li className="nav-item"><a href="#home">Categorias</a></li>
-                <li className="nav-item"><a href="#products">Carrito de compra</a></li>
-                <li className="nav-item"><a href="#contact">Buscar</a></li>
+                </link>
+                <link to="/carrito">
+                <li className="nav-item"><a href="#products">Carrito de compra - prueba</a></li>
+                </link>
+                <link to="/estado">
+                <li className="nav-item"><a href="#contact">Buscar- estado</a></li>
+                </link>
             </ul>
         </nav>
     )
