@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./styles.css";
 import Prueba from "./Prueba";
 
@@ -35,15 +36,15 @@ function Nav() {
     <nav className="nav">
       <ul className="nav-list">
         <li className="nav-item">
-          <a href="#home">Categorias</a>
+            <Link to="/">Categorias</Link>
         </li>
 
         <li className="nav-item">
-          <a href="#products">Carrito de compra - prueba</a>
+          <Link to="/carrito">Carrito de compra - prueba</Link>
         </li>
 
         <li className="nav-item">
-          <a href="#contact">Buscar- estado</a>
+          <Link to="/estado">Buscar- estado</Link>
         </li>
       </ul>
     </nav>
