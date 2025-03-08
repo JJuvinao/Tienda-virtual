@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 
-export default function Prueba() {
+export default function Prueba({ onCompra }) {
   const [productos, setProductos] = useState([]);
   const [carrito, setCarrito] = useState([]);
 
@@ -22,8 +22,7 @@ export default function Prueba() {
   }, []);
 
   const agregarAlCarrito = (producto) => {
-    setCarrito([...carrito, producto]);
-    alert("Producto agregado al carrito");
+    onCompra();
   };
 
   return (
@@ -50,3 +49,5 @@ export default function Prueba() {
     </div>
   );
 }
+
+
