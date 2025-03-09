@@ -30,7 +30,7 @@ export default function Prueba({ onCompra }) {
   const filtrarPorCategoria = (categoria) => {
     if (categoria === "") {
       setFtrProductos(productos);
-    }else{
+    } else {
       const productosFiltrados = productos.filter(
         (producto) => producto.category === categoria
       );
@@ -45,6 +45,29 @@ export default function Prueba({ onCompra }) {
   const agregarAlCarrito = (producto) => {
     onCompra();
   };
+
+  useEffect(() => {
+    const categoryBtns = document.querySelectorAll(".category-btn");
+    const handleMouseEnter = (event) => {
+      event.target.style.backgroundColor = 'blue';
+    };
+    const handleMouseLeave = (event) => {
+      event.target.style.backgroundColor = 'gray';
+    };
+
+    categoryBtns.forEach((btn) => {
+      btn.addEventListener('mouseenter', handleMouseEnter);
+      btn.addEventListener('mouseleave', handleMouseLeave);
+    });
+
+    // Cleanup event listeners on component unmount
+    return () => {
+      categoryBtns.forEach((btn) => {
+        btn.removeEventListener('mouseenter', handleMouseEnter);
+        btn.removeEventListener('mouseleave', handleMouseLeave);
+      });
+    };
+  }, [ftrproductos]);
 
   return (
     <div>
@@ -64,7 +87,7 @@ export default function Prueba({ onCompra }) {
               <h2>{producto.title}</h2>
               <h2>${producto.price}</h2>
               <button
-                className="btn btn-secondary"
+                className="btn btn-secondary category-btn"
                 onClick={() => agregarAlCarrito(producto)}
               >
                 Comprar
