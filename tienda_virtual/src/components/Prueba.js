@@ -25,34 +25,6 @@ export default function Prueba({ onCompra }) {
     onCompra();
   };
 
-  
-
-  useEffect(() => {
-    const categoryBtns = document.querySelectorAll(".category-btn");
-    categoryBtns.forEach((btn) => {
-      btn.addEventListener('mouseenter', () => {
-        btn.style.backgroundColor = 'blue';
-      });
-
-      btn.addEventListener('mouseleave', () => {
-        btn.style.backgroundColor = 'gray';
-      });
-    });
-
-    // Cleanup event listeners on component unmount
-    return () => {
-      categoryBtns.forEach((btn) => {
-        btn.removeEventListener('mouseenter', () => {
-          btn.style.backgroundColor = 'blue';
-        });
-
-        btn.removeEventListener('mouseleave', () => {
-          btn.style.backgroundColor = 'gray';
-        });
-      });
-    };
-  }, [productos]);
-
   return (
 
     <div className="product-grid">
@@ -63,7 +35,7 @@ export default function Prueba({ onCompra }) {
             <h2>{producto.title}</h2>
             <h2>${producto.price}</h2>
             <button 
-              className="btn btn-secondary category-btn"
+              className="btn btn-secondary "
               onClick={() => agregarAlCarrito(producto)}
             >
               Comprar
