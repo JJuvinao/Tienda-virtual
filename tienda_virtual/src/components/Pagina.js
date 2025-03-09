@@ -17,9 +17,13 @@ export default function Pagina() {
     setSeleccion(nuevaSeleccion);
   };
 
+  const reiniciarPagina = () => {
+    setSeleccion("prueba"); // Actualiza el estado para volver a renderizar Prueba
+  };
+
   return (
     <>
-      <Header />
+      <Header onReiniciar={reiniciarPagina} />
       <Nav onSeleccion={handleSeleccion} />
       {mostrarMensaje && <Compra />}
       <br></br>
@@ -29,10 +33,12 @@ export default function Pagina() {
   );
 }
 
-function Header() {
+function Header({ onReiniciar }) {
   return (
     <header className="header">
-      <h1 className="header-title">Mi Tienda</h1>
+      <button className="header-title no-border" onClick={onReiniciar}>
+        <h1>Mi Tienda</h1>
+      </button>
     </header>
   );
 }
@@ -42,13 +48,13 @@ function Nav({ onSeleccion }) {
     <nav className="nav">
       <ul className="nav-list">
         <li className="nav-item" onClick={() => onSeleccion("categorias")}>
-            Categorias
+          Categorias
         </li>
         <li className="nav-item" onClick={() => onSeleccion("carrito")}>
-            Carrito de compra - prueba
+          Carrito de compra - prueba
         </li>
         <li className="nav-item" onClick={() => onSeleccion("estado")}>
-            Buscar- estado
+          Buscar- estado
         </li>
       </ul>
     </nav>
@@ -70,7 +76,7 @@ function VistaMain({ seleccion, onCompra }) {
       break;
     case "prueba":
     default:
-      contenido = <Prueba onCompra={onCompra}  />;
+      contenido = <Prueba onCompra={onCompra} />;
   }
 
   return <main className="main">{contenido}</main>;
@@ -105,3 +111,5 @@ function BtnCarrito() {
 function Estado() {
   return <div>Estado</div>;
 }
+
+
