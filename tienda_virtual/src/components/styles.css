@@ -23,13 +23,15 @@
 }
 
 .nav-item {
-    margin: 0 15px;
-}
-
-.nav-item a {
+    cursor: pointer;
+    padding: 10px;
     color: white;
-    text-decoration: none;
-}
+  }
+  
+  .nav-item:hover {
+    color: blue; 
+    font-weight: bold; 
+  }
 
 .main {
     padding: 20px;
@@ -110,3 +112,16 @@
     border-radius: 5px;
     width: 50%; 
 }
+
+.no-border {
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+  
+  .no-border:focus {
+    outline: none;
+  }
