@@ -37,6 +37,7 @@ function Nav() {
       <ul className="nav-list">
         <li className="nav-item">
             <Link to="/">Categorias</Link>
+            
         </li>
 
         <li className="nav-item">
