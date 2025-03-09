@@ -16,6 +16,7 @@ export default function Estado() {
     <>
       <button onClick={Contar}>Prueba</button>
       <h1 id="titulo">Contador: {contador}</h1>
+      <h2>Sexo sexo mucho sexo</h2>
     </>
   );
 }
