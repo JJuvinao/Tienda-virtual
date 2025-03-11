@@ -4,7 +4,6 @@ import "./index.css";
 import Pagina from "./components/Pagina";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import PaginaPruebas from "./components/PaginaPruebas";
 import Prueba from "./components/Producto";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
