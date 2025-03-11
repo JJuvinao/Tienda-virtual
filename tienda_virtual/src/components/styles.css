@@ -26,6 +26,7 @@
     cursor: pointer;
     padding: 10px;
     color: white;
+    text-decoration: none;
   }
   
   .nav-item:hover {

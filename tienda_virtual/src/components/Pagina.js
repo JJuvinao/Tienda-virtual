@@ -1,33 +1,25 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import "./styles.css";
-import Prueba from "./Prueba";
+import Producto from "./Producto";
 import Carrito from "./CarritodeCompra";
+import { Link } from "react-router-dom";
 
-export default function Pagina() {
-  const [mostrarMensaje, setMostrarMensaje] = useState(false);
-  const [seleccion, setSeleccion] = useState("prueba");
-
-  const mensajedecompra = () => {
-    setMostrarMensaje(true);
-    setTimeout(() => setMostrarMensaje(false), 3000); // Oculta el mensaje después de 3 segundos
-  };
+export default function Pagina({Render, mensaje}) {
 
   const handleSeleccion = (nuevaSeleccion) => {
-    setSeleccion(nuevaSeleccion);
+    PasarPagina(nuevaSeleccion);
   };
 
   const reiniciarPagina = () => {
-    setSeleccion("prueba"); // Actualiza el estado para volver a renderizar Prueba
+    PasarPagina("prueba"); // Actualiza el estado para volver a renderizar Prueba
   };
 
   return (
     <>
       <Header onReiniciar={reiniciarPagina} />
-      <Nav onSeleccion={handleSeleccion} />
-      {mostrarMensaje && <Compra />}
+      <Nav />
+      {mensaje && <Compra />}
       <br></br>
-      <VistaMain seleccion={seleccion} onCompra={mensajedecompra} />
+      {<Render />}
       <Footer />
     </>
   );
@@ -43,40 +35,40 @@ function Header({ onReiniciar }) {
   );
 }
 
-function Nav({ onSeleccion }) {
+function Nav() {
   return (
     <nav className="nav">
       <ul className="nav-list">
-        <li className="nav-item" onClick={() => onSeleccion("categorias")}>
+        <Link className="nav-item"  to={"/carrito"}>
           Categorias
-        </li>
-        <li className="nav-item" onClick={() => onSeleccion("carrito")}>
+        </Link>
+        <Link className="nav-item" to={"/formulario"}>
           Carrito de compra - prueba
-        </li>
-        <li className="nav-item" onClick={() => onSeleccion("estado")}>
+        </Link>
+        <Link className="nav-item" to={"/estado"}>
           Buscar- estado
-        </li>
+        </Link>
       </ul>
     </nav>
   );
 }
 
-function VistaMain({ seleccion, onCompra }) {
+function PasarPagina({ seleccion}) {
   let contenido;
 
   switch (seleccion) {
     case "categorias":
-      contenido = <Categorias />;
+      
       break;
     case "carrito":
-      contenido = <BtnCarrito />;
+      
       break;
     case "estado":
-      contenido = <Estado />;
+      
       break;
     case "prueba":
     default:
-      contenido = <Prueba onCompra={onCompra} />;
+      contenido = <Producto />;
   }
 
   return <main className="main">{contenido}</main>;
@@ -95,21 +87,3 @@ function Footer() {
 function Compra() {
   return <h2 className="carrito">Agregado al carrito de compra</h2>;
 }
-
-function Categorias() {
-  return <div>Categorías</div>;
-}
-
-function BtnCarrito() {
-  return (
-    <>
-      <Carrito />
-    </>
-  );
-}
-
-function Estado() {
-  return <div>Estado</div>;
-}
-
-
