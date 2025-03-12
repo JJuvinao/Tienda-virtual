@@ -1,21 +1,11 @@
 import "./styles.css";
-import Producto from "./Producto";
-import Carrito from "./CarritodeCompra";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Pagina({Render, mensaje, OnCategoryChange}) {
 
-  const handleSeleccion = (nuevaSeleccion) => {
-    PasarPagina(nuevaSeleccion);
-  };
-
-  const reiniciarPagina = () => {
-    PasarPagina("prueba"); // Actualiza el estado para volver a renderizar Prueba
-  };
-
   return (
     <>
-      <Header onReiniciar={reiniciarPagina} />
+      <Header/>
       <Nav OnCategoryChange={OnCategoryChange}/>
       {mensaje && <Compra />}
       <br></br>
@@ -25,10 +15,16 @@ export default function Pagina({Render, mensaje, OnCategoryChange}) {
   );
 }
 
-function Header({ onReiniciar }) {
+function Header() {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/producto");
+  };
+  
   return (
     <header className="header">
-      <button className="header-title no-border" onClick={onReiniciar}>
+      <button className="header-title no-border" onClick={handleNavigate}>
         <h1>Mi Tienda</h1>
       </button>
     </header>
@@ -38,6 +34,7 @@ function Header({ onReiniciar }) {
 function Nav({OnCategoryChange}) {
   return (
     <nav className="nav">
+      <ul className="nav-list">
       <details className="nav-item">
         <summary>Categorias</summary>
           <ul>
@@ -58,12 +55,12 @@ function Nav({OnCategoryChange}) {
             </li>
           </ul>
         </details>
-      <ul className="nav-list">
+      
         <Link className="nav-item" to={"/carrito"}>
-          Carrito de compra - prueba
+          Carrito de compra
         </Link>
         <Link className="nav-item" to={"/estado"}>
-          Buscar- estado
+          Buscar
         </Link>
         <Link className="nav-item" to={"/formulario"}>
           Agregar Producto
@@ -71,27 +68,6 @@ function Nav({OnCategoryChange}) {
       </ul>
     </nav>
   );
-}
-
-function PasarPagina({ seleccion}) {
-  let contenido;
-
-  switch (seleccion) {
-    case "categorias":
-      
-      break;
-    case "carrito":
-      
-      break;
-    case "estado":
-      
-      break;
-    case "prueba":
-    default:
-      contenido = <Producto />;
-  }
-
-  return <main className="main">{contenido}</main>;
 }
 
 function Footer() {
