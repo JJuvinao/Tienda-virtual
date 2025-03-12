@@ -1,20 +1,12 @@
 import "./styles.css";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Pagina({Render, mensaje}) {
-
-  const handleSeleccion = (nuevaSeleccion) => {
-    PasarPagina(nuevaSeleccion);
-  };
-
-  const reiniciarPagina = () => {
-    PasarPagina("prueba"); // Actualiza el estado para volver a renderizar Prueba
-  };
+export default function Pagina({Render, mensaje, OnCategoryChange}) {
 
   return (
     <>
-      <Header onReiniciar={reiniciarPagina} />
-      <Nav />
+      <Header/>
+      <Nav OnCategoryChange={OnCategoryChange}/>
       {mensaje && <Compra />}
       <br></br>
       {<Render />}
@@ -42,6 +34,7 @@ function Header() {
 function Nav({OnCategoryChange}) {
   return (
     <nav className="nav">
+      <ul className="nav-list">
       <details className="nav-item">
         <summary>Categorias</summary>
           <ul>
@@ -62,12 +55,9 @@ function Nav({OnCategoryChange}) {
             </li>
           </ul>
         </details>
-      <ul className="nav-list">
-        <Link className="nav-item"  to={"/carrito"}>
-          Categorias
-        </Link>
-        <Link className="nav-item" to={"/formulario"}>
-          Carrito de compra - prueba
+      
+        <Link className="nav-item" to={"/carrito"}>
+          Carrito de compra
         </Link>
         <Link className="nav-item" to={"/estado"}>
           Buscar
