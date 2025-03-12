@@ -3,7 +3,7 @@ import Producto from "./Producto";
 import Carrito from "./CarritodeCompra";
 import { Link } from "react-router-dom";
 
-export default function Pagina({Render, mensaje}) {
+export default function Pagina({Render, mensaje, OnCategoryChange}) {
 
   const handleSeleccion = (nuevaSeleccion) => {
     PasarPagina(nuevaSeleccion);
@@ -16,7 +16,7 @@ export default function Pagina({Render, mensaje}) {
   return (
     <>
       <Header onReiniciar={reiniciarPagina} />
-      <Nav />
+      <Nav OnCategoryChange={OnCategoryChange}/>
       {mensaje && <Compra />}
       <br></br>
       {<Render />}
@@ -35,18 +35,38 @@ function Header({ onReiniciar }) {
   );
 }
 
-function Nav() {
+function Nav({OnCategoryChange}) {
   return (
     <nav className="nav">
+      <details className="nav-item">
+        <summary>Categorias</summary>
+          <ul>
+          <li>
+              <button onClick={() => OnCategoryChange("")}>All</button>
+            </li>
+            <li>
+              <button onClick={() => OnCategoryChange("men's clothing")}>Men's clothing</button>
+            </li>
+            <li>
+              <button onClick={() => OnCategoryChange("women's clothing")}>women's clothing</button>
+            </li>
+            <li>
+              <button onClick={() => OnCategoryChange("electronics")}>Electronics</button>
+            </li>
+            <li>
+              <button onClick={() => OnCategoryChange("jewelery")}>Jewelery</button>
+            </li>
+          </ul>
+        </details>
       <ul className="nav-list">
-        <Link className="nav-item"  to={"/carrito"}>
-          Categorias
-        </Link>
-        <Link className="nav-item" to={"/formulario"}>
+        <Link className="nav-item" to={"/carrito"}>
           Carrito de compra - prueba
         </Link>
         <Link className="nav-item" to={"/estado"}>
           Buscar- estado
+        </Link>
+        <Link className="nav-item" to={"/formulario"}>
+          Agregar Producto
         </Link>
       </ul>
     </nav>
