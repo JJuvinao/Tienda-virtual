@@ -1,21 +1,11 @@
 import "./styles.css";
-import Producto from "./Producto";
-import Carrito from "./CarritodeCompra";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Pagina({Render, mensaje}) {
 
-  const handleSeleccion = (nuevaSeleccion) => {
-    PasarPagina(nuevaSeleccion);
-  };
-
-  const reiniciarPagina = () => {
-    PasarPagina("prueba"); // Actualiza el estado para volver a renderizar Prueba
-  };
-
   return (
     <>
-      <Header onReiniciar={reiniciarPagina} />
+      <Header  />
       <Nav />
       {mensaje && <Compra />}
       <br></br>
@@ -25,10 +15,16 @@ export default function Pagina({Render, mensaje}) {
   );
 }
 
-function Header({ onReiniciar }) {
+function Header() {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/producto");
+  };
+  
   return (
     <header className="header">
-      <button className="header-title no-border" onClick={onReiniciar}>
+      <button className="header-title no-border" onClick={handleNavigate}>
         <h1>Mi Tienda</h1>
       </button>
     </header>
@@ -39,39 +35,21 @@ function Nav() {
   return (
     <nav className="nav">
       <ul className="nav-list">
-        <Link className="nav-item"  to={"/carrito"}>
+        <Link className="nav-item"  to={"/formulario"}>
           Categorias
         </Link>
+        <Link className="nav-item" to={"/carrito"}>
+          Carrito de compra
+        </Link>
         <Link className="nav-item" to={"/formulario"}>
-          Carrito de compra - prueba
+          Agregar producto
         </Link>
         <Link className="nav-item" to={"/estado"}>
-          Buscar- estado
+          Buscar
         </Link>
       </ul>
     </nav>
   );
-}
-
-function PasarPagina({ seleccion}) {
-  let contenido;
-
-  switch (seleccion) {
-    case "categorias":
-      
-      break;
-    case "carrito":
-      
-      break;
-    case "estado":
-      
-      break;
-    case "prueba":
-    default:
-      contenido = <Producto />;
-  }
-
-  return <main className="main">{contenido}</main>;
 }
 
 function Footer() {
