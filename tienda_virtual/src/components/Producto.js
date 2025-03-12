@@ -60,20 +60,6 @@ export default function Prueba() {
   const MostrarProductos = () => {
     const Mostrar = (
       <div>
-        <div>
-          <button onClick={() => cambiarCategoria("")}>Sexo</button>
-          <button onClick={() => cambiarCategoria("men's clothing")}>
-            Men's Clothing
-          </button>
-          <button onClick={() => cambiarCategoria("women's clothing")}>
-            Women's Clothing
-          </button>
-          <button onClick={() => cambiarCategoria("electronics")}>
-            Electronics
-          </button>
-          <button onClick={() => cambiarCategoria("jewelery")}>Jewelery</button>
-        </div>
-
         <div className="product-grid">
           {ftrproductos.map((producto) => (
             <button
@@ -124,6 +110,7 @@ export default function Prueba() {
   }, [ftrproductos]);
 
   return (
-      <Pagina Render={MostrarProductos} mensaje={mostrarMensaje} />
+      <Pagina Render={MostrarProductos} mensaje={mostrarMensaje} 
+      OnCategoryChange={cambiarCategoria} />
   );
 }

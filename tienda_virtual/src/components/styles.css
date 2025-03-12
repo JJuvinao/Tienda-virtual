@@ -27,12 +27,12 @@
     padding: 10px;
     color: white;
     text-decoration: none;
-  }
-  
-  .nav-item:hover {
-    color: blue; 
+}
+
+.nav-item:hover {
+    color: blue;
     font-weight: bold; 
-  }
+}
 
 .main {
     padding: 20px;
@@ -126,8 +126,8 @@
     font: inherit;
     color: inherit;
     cursor: pointer;
-  }
-  
-  .no-border:focus {
+}
+
+.no-border:focus {
     outline: none;
-  }
+}
