@@ -44,7 +44,11 @@ export default function Prueba() {
     setCategoria(nuevaCategoria);
   };
 
-  const agregarAlCarrito = (producto) => {
+  const agregarAlCarrito = (product) => {
+    const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
+    const carritoActualizado = [...carritoActual, product];
+    localStorage.setItem('carrito', JSON.stringify(carritoActualizado));
+    setCarrito(carritoActualizado);
     mensajedecompra();
   };
 
