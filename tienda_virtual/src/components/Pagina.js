@@ -15,7 +15,7 @@ export default function Pagina({ Render, mensaje, OnCategoryChange, onSearch }) 
   );
 }
 
-function Header() {
+export function Header() {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -76,7 +76,7 @@ function Nav({ OnCategoryChange, onSearch }) {
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="footer">
       <p className="footer-text">© 2025 Mi Tienda. Todos los derechos reservados.</p>
