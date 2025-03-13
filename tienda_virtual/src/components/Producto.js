@@ -40,6 +40,10 @@ export default function Prueba() {
     }
   };
 
+  const cambiarCategoria = (nuevaCategoria) => {
+    setCategoria(nuevaCategoria);
+  };
+
   const handleSearch = (term) => {
     if (term === '') {
       setFtrProductos(productos);
@@ -49,10 +53,6 @@ export default function Prueba() {
       );
       setFtrProductos(productosbuscados);
     }
-  };
-
-  const cambiarCategoria = (nuevaCategoria) => {
-    setCategoria(nuevaCategoria);
   };
 
   const agregarAlCarrito = (product) => {

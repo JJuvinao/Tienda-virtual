@@ -4,6 +4,8 @@ import Pagina from "./Pagina";
 
 export default function Carrito() {
   const [productos, setProductos] = useState([]);
+  const [ftrproductos, setFtrProductos] = useState([]);
+  const [categoria, setCategoria] = useState("");
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -33,6 +35,36 @@ export default function Carrito() {
     return productosAgrupados;
   };
 
+  useEffect(() => {
+    filtrarPorCategoria(categoria);
+  }, [productos, categoria]);
+
+  const filtrarPorCategoria = (categoria) => {
+    if (categoria === "") {
+      setFtrProductos(productos);
+    } else {
+      const productosFiltrados = productos.filter(
+        (producto) => producto.category === categoria
+      );
+      setFtrProductos(productosFiltrados);
+    }
+  };
+
+  const cambiarCategoria = (nuevaCategoria) => {
+    setCategoria(nuevaCategoria);
+  };
+
+  const handleSearch = (term) => {
+    if (term === '') {
+      setFtrProductos(productos);
+    } else {
+      const productosbuscados = productos.filter((producto) =>
+        producto.title.toLowerCase().includes(term.toLowerCase())
+      );
+      setFtrProductos(productosbuscados);
+    }
+  };
+
   const ElimiarProducto = (id) => {
     const productosActualizados = productos.map(producto => {
       if (producto.id === id) {
@@ -55,7 +87,7 @@ export default function Carrito() {
       <h2>Carrito de compra</h2>
       <h3 className="totalpre">Precio total: ${total}</h3>
       <div className="product-grid">
-        {productos.map((producto) => (
+        {ftrproductos.map((producto) => (
           <button
           id="btn-articule"
           className="btn btn-white"
@@ -90,6 +122,6 @@ export default function Carrito() {
   };
 
   return (
-    <Pagina Render={prodcarrito} />
+    <Pagina Render={prodcarrito} OnCategoryChange={cambiarCategoria} onSearch={handleSearch}/>
   );
 }
