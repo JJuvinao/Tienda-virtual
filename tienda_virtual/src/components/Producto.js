@@ -108,8 +108,10 @@ export default function Prueba() {
     };
   }, [ftrproductos]);
 
-  return (
+  return (<>
+      
       <Pagina Render={MostrarProductos} mensaje={mostrarMensaje} 
-      OnCategoryChange={cambiarCategoria} />
+      OnCategoryChange={cambiarCategoria}/>
+      </>
   );
 }
