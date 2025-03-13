@@ -16,7 +16,7 @@ export default function Carrito() {
 
   useEffect(() => {
     const total = productos.reduce((acc, producto) => acc + producto.price * producto.cantidad, 0);
-    setTotal(total);
+    setTotal(total.toFixed(2));
   }, [productos]);
 
 
@@ -32,6 +32,22 @@ export default function Carrito() {
     }, []);
     return productosAgrupados;
   };
+
+  const ElimiarProducto = (id) => {
+    const productosActualizados = productos.map(producto => {
+      if (producto.id === id) {
+        if (producto.cantidad > 1) {
+          return { ...producto, cantidad: producto.cantidad - 1 };
+        } else {
+          return null;
+        }
+      }
+      return producto;
+    }).filter(producto => producto !== null);
+    
+    setProductos(productosActualizados);
+    localStorage.setItem('carrito', JSON.stringify(productosActualizados));
+  }
 
   const prodcarrito = () => {
     const carrito =(
@@ -50,12 +66,20 @@ export default function Carrito() {
             <h2>{producto.title}</h2>
             <h2>${producto.price}</h2>
             <p>Cantidad: {producto.cantidad}</p>
+            <div className="CarritoBtn">
             <button
               className="btn btn-secondary category-btn"
 
             >
-              Comprar
+              Pagar
             </button>
+            <button
+              className="btn btn-secondary category-btn"
+              onClick={() => ElimiarProducto(producto.id)}
+            >
+              Quitar
+            </button>
+            </div>
           </article>
         </button>
         ))}

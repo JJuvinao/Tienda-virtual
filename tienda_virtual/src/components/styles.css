@@ -34,7 +34,41 @@
     font-weight: bold; 
 }
 
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Posiciona el menú justo debajo del botón de categorías */
+    left: 0;
+    background-color: #444;
+    padding: 10px;
+    z-index: 1000; /* Asegura que el menú sobresalga del nav */
+    list-style-type: none;
+    margin: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block; /* Muestra el menú cuando se pasa el mouse sobre el botón de categorías */
+}
+
+.dropdown-menu li {
+    padding: 5px 0;
+}
+
+.dropdown-menu li button {
+    background: none;
+    border: none;
+    color: #444;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.dropdown-menu li button:hover {
+    color: blue;
+}
+
 .main {
+    width: 100%;
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -117,6 +151,11 @@
     border: 1px solid #444; 
     border-radius: 5px;
     width: 50%; 
+}
+
+.CarritoBtn{
+    display: flex;
+    gap: 10px;
 }
 
 .no-border {
