@@ -1,5 +1,4 @@
 import './App.css';
-import Estado from './components/Estado';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Carrito from './components/CarritodeCompra';
 import Prueba from './components/Producto';
@@ -14,7 +13,6 @@ function App() {
         <Route path="/producto" element={<Prueba/>}/>
         <Route path="/carrito" element={<Carrito />}/>
         <Route path="/formulario" element={<Formulario />}/>
-        <Route path="/estado" element={<Estado />}/>
         <Route/>
       </Routes>
     </Router>
