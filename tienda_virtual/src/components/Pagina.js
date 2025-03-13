@@ -35,9 +35,9 @@ function Nav({OnCategoryChange}) {
   return (
     <nav className="nav">
       <ul className="nav-list">
-      <details className="nav-item">
+      <details className="nav-item dropdown">
         <summary>Categorias</summary>
-          <ul>
+          <ul className="dropdown-menu">
           <li>
               <button onClick={() => OnCategoryChange("")}>All</button>
             </li>
