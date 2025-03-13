@@ -7,18 +7,24 @@ export default function Formulario() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const image = event.target.image.files[0];
-        const newProduct = {
-            id: productos.length + 1,
-            title: event.target.title.value,
-            price: parseFloat(event.target.price.value),
-            description: event.target.description.value,
-            category: event.target.category.value,
-            image: URL.createObjectURL(image)
-        };
 
-        productos.push(newProduct);
-        localStorage.setItem("products", JSON.stringify(productos));
-        alert(newProduct.image);
+        const reader = new FileReader();
+        reader.onload = () => {
+            const newProduct = {
+                id: productos.length + 1,
+                title: event.target.title.value,
+                price: parseFloat(event.target.price.value),
+                description: event.target.description.value,
+                category: event.target.category.value,
+                image: reader.result,
+            };
+
+            productos.push(newProduct);
+            localStorage.setItem("products", JSON.stringify(productos));
+            alert("Producto creado exitosamente");
+            event.target.reset();
+        };
+        reader.readAsDataURL(image);
     };
 
     const FormularioProd = () => {

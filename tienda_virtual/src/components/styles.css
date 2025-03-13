@@ -274,3 +274,16 @@
 .form-button:hover {
     background-color: #0056b3;
 }
+
+.search-container {
+    margin-bottom: 20px;
+    text-align: center;
+    margin-left: auto;
+  }
+  
+  .search-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 16px;
+  }

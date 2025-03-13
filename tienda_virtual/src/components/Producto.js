@@ -40,6 +40,17 @@ export default function Prueba() {
     }
   };
 
+  const handleSearch = (term) => {
+    if (term === '') {
+      setFtrProductos(productos);
+    } else {
+      const productosbuscados = productos.filter((producto) =>
+        producto.title.toLowerCase().includes(term.toLowerCase())
+      );
+      setFtrProductos(productosbuscados);
+    }
+  };
+
   const cambiarCategoria = (nuevaCategoria) => {
     setCategoria(nuevaCategoria);
   };
@@ -86,6 +97,7 @@ export default function Prueba() {
     return Mostrar;
   };
 
+  //cambiar el color del boton a pasar por encima
   useEffect(() => {
     const categoryBtns = document.querySelectorAll(".category-btn");
     const handleMouseEnter = (event) => {
@@ -112,7 +124,7 @@ export default function Prueba() {
   return (<>
       
       <Pagina Render={MostrarProductos} mensaje={mostrarMensaje} 
-      OnCategoryChange={cambiarCategoria}/>
+      OnCategoryChange={cambiarCategoria} onSearch={handleSearch}/>
       </>
   );
 }

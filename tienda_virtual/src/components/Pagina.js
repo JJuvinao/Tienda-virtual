@@ -1,12 +1,12 @@
 import "./styles.css";
 import { Link, useNavigate } from "react-router-dom";
+import Buscador from "./Bucardor";
 
-export default function Pagina({Render, mensaje, OnCategoryChange}) {
-
+export default function Pagina({ Render, mensaje, OnCategoryChange, onSearch }) {
   return (
     <>
-      <Header/>
-      <Nav OnCategoryChange={OnCategoryChange}/>
+      <Header />
+      <Nav OnCategoryChange={OnCategoryChange} onSearch={onSearch} />
       {mensaje && <Compra />}
       <br></br>
       {<Render />}
@@ -21,7 +21,7 @@ function Header() {
   const handleNavigate = () => {
     navigate("/producto");
   };
-  
+
   return (
     <header className="header">
       <button className="header-title no-border" onClick={handleNavigate}>
@@ -31,41 +31,47 @@ function Header() {
   );
 }
 
-function Nav({OnCategoryChange}) {
+function Nav({ OnCategoryChange, onSearch }) {
   return (
     <nav className="nav">
       <ul className="nav-list">
-      <details className="nav-item dropdown">
-        <summary>Categorias</summary>
+        <details className="nav-item dropdown">
+          <summary>Categorias</summary>
           <ul className="dropdown-menu">
-          <li>
+            <li>
               <button onClick={() => OnCategoryChange("")}>All</button>
             </li>
             <li>
-              <button onClick={() => OnCategoryChange("men's clothing")}>Men's clothing</button>
+              <button onClick={() => OnCategoryChange("men's clothing")}>
+                Men's clothing
+              </button>
             </li>
             <li>
-              <button onClick={() => OnCategoryChange("women's clothing")}>women's clothing</button>
+              <button onClick={() => OnCategoryChange("women's clothing")}>
+                women's clothing
+              </button>
             </li>
             <li>
-              <button onClick={() => OnCategoryChange("electronics")}>Electronics</button>
+              <button onClick={() => OnCategoryChange("electronics")}>
+                Electronics
+              </button>
             </li>
             <li>
-              <button onClick={() => OnCategoryChange("jewelery")}>Jewelery</button>
+              <button onClick={() => OnCategoryChange("jewelery")}>
+                Jewelery
+              </button>
             </li>
           </ul>
         </details>
-      
+
         <Link className="nav-item" to={"/carrito"}>
           Carrito de compra
-        </Link>
-        <Link className="nav-item" to={"/estado"}>
-          Buscar
         </Link>
         <Link className="nav-item" to={"/formulario"}>
           Agregar Producto
         </Link>
       </ul>
+      <Buscador onSearch={onSearch} />
     </nav>
   );
 }
@@ -73,9 +79,7 @@ function Nav({OnCategoryChange}) {
 function Footer() {
   return (
     <footer className="footer">
-      <p className="footer-text">
-        © 2025 Mi Tienda. Todos los derechos reservados.
-      </p>
+      <p className="footer-text">© 2025 Mi Tienda. Todos los derechos reservados.</p>
     </footer>
   );
 }
