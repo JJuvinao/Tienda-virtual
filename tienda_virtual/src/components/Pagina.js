@@ -9,7 +9,7 @@ export default function Pagina({ Render, mensaje, OnCategoryChange, onSearch }) 
       <Nav OnCategoryChange={OnCategoryChange} onSearch={onSearch} />
       {mensaje && <Compra />}
       <br></br>
-      {<Render />}
+      <Render />
       <Footer />
     </>
   );

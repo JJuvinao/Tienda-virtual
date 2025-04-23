@@ -5,12 +5,16 @@ import Pagina from "./components/Pagina";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Prueba from "./components/Producto";
+import Inicio from "./componentsApi/Inicio";
+import StoreProvider from "./store/StoreProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <React.StrictMode>
+  <React.StrictMode>
+    <StoreProvider>
       <App />
-    </React.StrictMode>
+    </StoreProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
