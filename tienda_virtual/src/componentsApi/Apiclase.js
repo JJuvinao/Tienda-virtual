@@ -87,7 +87,7 @@ export default function Apiclase() {
     };
 
     try {
-       await fetch("https://localhost:7248/api/Profe_Clase",
+       await fetch("https://localhost:7248/api/Profe_Clase", 
         {
           method: "POST",
           headers: {
