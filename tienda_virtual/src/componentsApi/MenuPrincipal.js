@@ -6,6 +6,7 @@ import { StoreContext } from "../store/StoreProvider";
 
 export default function MenuPrincipal() {
   const [clases, setClases] = useState([]);
+  const [UserClases, setUserClases] = useState([]);
   const navigate = useNavigate();
 
   const [store] = useContext(StoreContext);
@@ -19,6 +20,10 @@ export default function MenuPrincipal() {
         console.error("Error consultado al recibir clases", error)
       );
   }, []);
+
+  useEffect(() => {
+    setUserClases(clases.filter((clase) => clase.autor === user.name));
+  }, [clases]);
 
   const IrClase = () => {
     navigate("/clase");
@@ -60,8 +65,8 @@ export default function MenuPrincipal() {
 
             <div className="clase-container">
               {/* Article de mostrar las clases  */}
-
-              {clases.map((clase) => (
+              <CrearClase />
+              {UserClases.map((clase) => (
                   <article
                     key={clase.id}
                     className="article-clase"
@@ -79,7 +84,6 @@ export default function MenuPrincipal() {
                     </div>
                   </article>
               ))}
-              <> <CrearClase /></>
             </div>
           </div>
         </section>
