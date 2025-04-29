@@ -30,12 +30,17 @@ export default function ApiLogin() {
     const username = form.username.value;
     const password = form.password.value;
 
-    const usuarioEncontrado = usuarios.find((usuario) => usuario.nombre === username && usuario.contrasena === password);
+    const usuarioEncontrado = usuarios.find((usuario) => usuario.nombre === username);
 
     if (usuarioEncontrado) {
-      alert("Usuario encontrado: " + usuarioEncontrado.username);
-      Cargarusuario(username, usuarioEncontrado.id);
-      navigate("/menu");
+      if(usuarioEncontrado.contrasena === password) {
+        alert("Usuario encontrado: " + usuarioEncontrado.nombre);
+        Cargarusuario(username, usuarioEncontrado.id);
+        navigate("/menu");
+      }
+      else {
+        alert("Contraseña incorrecta");
+      }
     } else {
       alert("Usuario no encontrado");
     }

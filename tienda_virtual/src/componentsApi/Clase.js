@@ -17,8 +17,8 @@ export default function Clases() {
         .catch((error) =>
           console.error("Error consultado al recibir clases", error)
         );
-    } else {
-      alert("No se encontro la calse");
+    }else{
+        alert("No tienes clases disponibles");
     }
   }, [clase.id]);
 
