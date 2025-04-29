@@ -1,5 +1,6 @@
 import "./styles.css";
 import Pagina from "./Pagina";
+import { Header, Footer } from "./Pagina";
 
 export default function Formulario() {
     const productos = JSON.parse(localStorage.getItem("products")) || [];
@@ -67,7 +68,9 @@ export default function Formulario() {
 
     return (
         <>
-            <Pagina Render={FormularioProd} />
+            <Header />
+            <FormularioProd />
+            <Footer />
         </>
     );
 }

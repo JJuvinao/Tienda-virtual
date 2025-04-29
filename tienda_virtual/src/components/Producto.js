@@ -5,13 +5,14 @@ import Pagina from "./Pagina";
 
 export default function Prueba() {
   const [productos, setProductos] = useState([]);
-  const [carrito, setCarrito] = useState([]);
   const [ftrproductos, setFtrProductos] = useState([]);
   const [categoria, setCategoria] = useState("");
   const [mostrarMensaje, setMostrarMensaje] = useState(false);
 
   useEffect(() => {
+
     const listaProductos = localStorage.getItem("products");
+    
     if (listaProductos) {
       setProductos(JSON.parse(listaProductos));
     } else {
@@ -40,6 +41,10 @@ export default function Prueba() {
     }
   };
 
+  const cambiarCategoria = (nuevaCategoria) => {
+    setCategoria(nuevaCategoria);
+  };
+
   const handleSearch = (term) => {
     if (term === '') {
       setFtrProductos(productos);
@@ -51,15 +56,10 @@ export default function Prueba() {
     }
   };
 
-  const cambiarCategoria = (nuevaCategoria) => {
-    setCategoria(nuevaCategoria);
-  };
-
   const agregarAlCarrito = (product) => {
     const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
     const carritoActualizado = [...carritoActual, product];
     localStorage.setItem('carrito', JSON.stringify(carritoActualizado));
-    setCarrito(carritoActualizado);
     mensajedecompra();
   };
 
