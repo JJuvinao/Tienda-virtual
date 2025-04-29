@@ -1,19 +1,20 @@
-import { createContext, useReducer, useEffect } from "react";
-import storeReducer, { initialState } from "./StoreReducer";
+import React, { useReducer, useEffect } from "react";
+import storeReducer, { initialState, types } from "./StoreReducer";
 
-const StoreContext = createContext(null);
+const StoreContext = React.createContext();
 
 const StoreProvider = ({ children }) => {
+    
     const persistedState = JSON.parse(localStorage.getItem("store")) || initialState;
 
-    const [store, dispatch] = useReducer(storeReducer, persistedState);
+    const [state, dispatch] = useReducer(storeReducer, persistedState);
 
     useEffect(() => {
-        localStorage.setItem("store", JSON.stringify(store));
-    }, [store]);
+        localStorage.setItem("store", JSON.stringify(state));
+    }, [state]);
 
     return (
-        <StoreContext.Provider value={[store, dispatch]}>
+        <StoreContext.Provider value={[state, dispatch]}>
             {children}
         </StoreContext.Provider>
     );

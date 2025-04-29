@@ -282,3 +282,55 @@
 .article-button:hover {
     background-color: #0056b3;
 }
+
+
+
+/* src/componentsApi/clasesApi.css */
+.clasesapi-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .clasesapi-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .clasesapi-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .clasesapi-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .clasesapi-nombre {
+    font-size: 1.8rem;
+    color: #007bff;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .clasesapi-info {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  .clasesapi-info strong {
+    color: #333;
+  }

@@ -33,7 +33,7 @@ export default function Apiclase() {
     const form = event.target;
     const nombre = form.nombre.value;
     const tema = form.tema.value;
-    const autor = form.autor.value;
+    const autor = user.name;
     const codigo = form.codigo.value;
     const estado = true;
     const fecha = new Date().toISOString();

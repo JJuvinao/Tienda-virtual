@@ -17,7 +17,7 @@ export default function Apiregistro() {
       .catch((error) =>
         console.error("Error consultado al recibir usuarios", error)
       );
-  }, [username, password]);
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -82,7 +82,7 @@ export default function Apiregistro() {
             <input type="password" id="password" name="password" required />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Rol:</label>
+            <label htmlFor="category">Rol:</label>
             <select id="category" name="category" required className="form-select"
             >
               <option value="rol">Selecionar su rol</option>
@@ -91,8 +91,8 @@ export default function Apiregistro() {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="password">Correo electronico:</label>
-            <input type="text" id="correo" name="password" required />
+            <label htmlFor="correo">Correo electronico:</label>
+            <input type="text" id="correo" name="correo" required />
           </div>
           <button type="submit" className="form-button">
             Registro

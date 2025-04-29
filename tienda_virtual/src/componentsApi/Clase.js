@@ -1,14 +1,17 @@
 import "./stylesApi.css";
 import { useState, useEffect, useContext } from "react";
 import { StoreContext } from "../store/StoreProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function Clases() {
   const [clases, setClases] = useState([]);
-  const id = BuscarClase();
+  const [store] = useContext(StoreContext);
+  const { clase } = store;
+    const  navigate = useNavigate();
 
   useEffect(() => {
-    if (id) {
-      fetch("https://localhost:7248/api/Clases/" + id)
+    if (clase.id) {
+        fetch(`https://localhost:7248/api/Clases/${clase.id}`)
         .then((res) => res.json())
         .then((data) => setClases(data))
         .catch((error) =>
@@ -17,22 +20,37 @@ export default function Clases() {
     }else{
         alert("No tienes clases disponibles");
     }
-  }, [id]);
+  }, [clase.id]);
+
+  const handleInicio = () => {
+    navigate("/menu");
+  }
 
   return (
-    <div className="clases-container">
-      <h1>Clases Disponibles</h1>
-      <div className="clases-list">
-        <div key={clases.id} className="clase-card">
-          <h2>{clases.nombre}</h2>
-          <p>Tema: {clases.tema}</p>
-          <p>Autor: {clases.autor}</p>
-          <p>Código: {clases.codigo}</p>
-          <p>Estado: {clases.estado ? "Activo" : "Inactivo"}</p>
-          <p>Fecha: {new Date(clases.fecha).toLocaleDateString()}</p>
-        </div>
+    <div className="clasesapi-container">
+    <h1 className="clasesapi-title">Detalles de la Clase</h1>
+    <button className="inicio-button" onClick={handleInicio}> Volver Menu </button>
+    <div className="clasesapi-list">
+      <div key={clases.id} className="clasesapi-card">
+        <h2 className="clasesapi-nombre">{clases.nombre}</h2>
+        <p className="clasesapi-info">
+          <strong>Tema:</strong> {clases.tema}
+        </p>
+        <p className="clasesapi-info">
+          <strong>Autor:</strong> {clases.autor}
+        </p>
+        <p className="clasesapi-info">
+          <strong>Código:</strong> {clases.codigo}
+        </p>
+        <p className="clasesapi-info">
+          <strong>Estado:</strong> {clases.estado ? "Activo" : "Inactivo"}
+        </p>
+        <p className="clasesapi-info">
+          <strong>Fecha:</strong> {new Date(clases.fecha).toLocaleDateString()}
+        </p>
       </div>
     </div>
+  </div>
   );
 }
 
@@ -50,13 +68,7 @@ export function BuscarClase() {
       );
   }, []);
 
-  const Pro_Clas = Profe_Clase.find(
-    (Profe_Clase) => Profe_Clase.id_profesor === user.id
-  );
+  const clase = Profe_Clase.find((clase) => clase.id_profesor === user.id);
 
-  if (Pro_Clas) {
-    return Pro_Clas.idClase;
-  } else {
-    return null;
-  }
+  return clase ? clase.id_clase : null;
 }

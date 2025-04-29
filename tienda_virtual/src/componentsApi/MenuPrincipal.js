@@ -1,14 +1,15 @@
 import "./stylesApi.css";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { types } from "../store/StoreReducer";
 import { StoreContext } from "../store/StoreProvider";
+import { types } from "../store/StoreReducer";
 
 export default function MenuPrincipal() {
   const [clases, setClases] = useState([]);
+  const [UserClases, setUserClases] = useState([]);
   const navigate = useNavigate();
 
-  const [store] = useContext(StoreContext);
+  const [store, dispatch] = useContext(StoreContext);
   const { user } = store;
 
   useEffect(() => {
@@ -20,7 +21,13 @@ export default function MenuPrincipal() {
       );
   }, []);
 
-  const IrClase = () => {
+  useEffect(() => {
+    setUserClases(clases.filter((clase) => clase.autor === user.name));
+  }, [clases]);
+
+  const IrClase = ({ id_c, nom_c }) => {
+    const clase = { name: nom_c, id: id_c };
+    dispatch({ type: types.SET_CLASE, payload: clase });
     navigate("/clase");
   };
   return (
@@ -50,33 +57,32 @@ export default function MenuPrincipal() {
             <h1 className="menu-principal-title">Exa - Gammer</h1>
           </header>
           <div className="small-section">
-            <p>sección pequeña.</p>
+            <p> sección pequeña.</p>
           </div>
           <div className="large-section">
             <p>Clases disponibles</p>
 
             <div className="clase-container">
               {/* Article de mostrar las clases  */}
-
-              {clases.map((clase) => (
-                  <article
-                    key={clase.id}
-                    className="article-clase"
-                    onClick={IrClase}
-                  >
-                    <div className="article-image-container">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        alt="Imagen de la clase"
-                        className="article-image"
-                      />
-                    </div>
-                    <div className="article-text">
-                      <p>{clase.nombre}</p>
-                    </div>
-                  </article>
+              <CrearClase />
+              {UserClases.map((clase) => (
+                <article
+                  key={clase.id}
+                  className="article-clase"
+                  onClick={() => IrClase({ id_c: clase.id , nom_c: clase.nombre })}
+                >
+                  <div className="article-image-container">
+                    <img
+                      src="https://via.placeholder.com/150"
+                      alt="Imagen de la clase"
+                      className="article-image"
+                    />
+                  </div>
+                  <div className="article-text">
+                    <p>{clase.nombre}</p>
+                  </div>
+                </article>
               ))}
-              <> <CrearClase /></>
             </div>
           </div>
         </section>

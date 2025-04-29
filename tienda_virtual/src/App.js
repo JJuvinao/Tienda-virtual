@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<Inicio/>}/>
+        <Route path="/" element={<Inicio/>}/>
         <Route path="/login" element={<ApiLogin/>}/>
         <Route path="/registro" element={<Apiregistro />}/>
         <Route path="/crearclase" element={<Apiclase />}/>

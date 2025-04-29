@@ -20,8 +20,8 @@ export default function ApiLogin() {
     fetch("https://localhost:7248/api/Usuarios")
     .then((res) => res.json())
     .then((data) => setUsuarios(data))
-        .catch((error) => console.error("Error consultado al recibir usuarios", error));
-  }, [username, password]);
+    .catch((error) => console.error("Error consultado al recibir usuarios", error));
+  }, []);
 
 
   const handleSubmit = (event) => {
