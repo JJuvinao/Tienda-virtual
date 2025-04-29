@@ -41,9 +41,6 @@ export default function MenuPrincipal() {
               <a href="/">Inicio</a>
             </li>
             <li>
-              <a href="/registro">Registro</a>
-            </li>
-            <li>
               <a href="/clases">Clases</a>
             </li>
           </ul>
@@ -53,7 +50,7 @@ export default function MenuPrincipal() {
             <h1 className="menu-principal-title">Exa - Gammer</h1>
           </header>
           <div className="small-section">
-            <p>Esta es una sección pequeña.</p>
+            <p>sección pequeña.</p>
           </div>
           <div className="large-section">
             <p>Clases disponibles</p>
