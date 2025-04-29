@@ -25,6 +25,7 @@ export default function Clases() {
 
   const handleInicio = () => {
     navigate("/menu");
+    /*hola*/
   }
 
   const EditarClase = () => {
