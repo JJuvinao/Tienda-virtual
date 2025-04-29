@@ -1,6 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom';
 import './stylesApi.css';
-//import imagenEducativa from './assets/imagen-educativa.jpg'; // Coloca tu imagen en src/assets
+import  imagenEducativa  from './imagen/c.png'; 
 
 export default function Inicio() {
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function Inicio() {
                 </nav>
 
                 <section className="home-container">
-                    <div className="text-content">
+                    <div className="text-content" >
                         <h1>Conocimiento<br />sin límites.<br />educación<br />para todos.</h1>
                         <p>
                             Creemos que la educación debe ser un derecho accesible para todos.
