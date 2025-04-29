@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import Prueba from "./components/Producto";
 import Inicio from "./componentsApi/Inicio";
 import StoreProvider from "./store/StoreProvider";
+import Ahorcado from "./practicas/Ahorcado";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

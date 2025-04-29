@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Apiregistro() {
-  const [usuarios, setUsuarios] = useState("");
+  const [usuarios, setUsuarios] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rol, setRol] = useState("");
