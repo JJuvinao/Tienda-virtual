@@ -5,16 +5,24 @@ import { useNavigate } from "react-router-dom";
 
 export default function Clases() {
   const [clases, setClases] = useState([]);
+  const [nombreClase, setNombreClase] = useState("");
+  const [temaClase, setTemaClase] = useState("");
+  const [estadoClase, setEstadoClase] = useState(false);
   const [store] = useContext(StoreContext);
   const { clase } = store;
-  const { isEditing, setIsEditing } = useState(false);
+  const [ isEditing, setIsEditing ] = useState(true);
   const  navigate = useNavigate();
 
   useEffect(() => {
     if (clase.id) {
         fetch(`https://localhost:7248/api/Clases/${clase.id}`)
         .then((res) => res.json())
-        .then((data) => setClases(data))
+        .then((data) => {
+          setClases(data);
+          setNombreClase(data.nombre);
+          setTemaClase(data.tema);
+          setEstadoClase(data.estado);
+        })
         .catch((error) =>
           console.error("Error consultado al recibir clases", error)
         );
@@ -27,8 +35,60 @@ export default function Clases() {
     navigate("/menu");
   }
 
-  const EditarClase = () => {
+  const EditarClase = async (event) => {
+    if (isEditing) {
+      event.target.innerText = "Guardar Cambios";
+    }else{
+      if (ValidarEnBlanco){
+        event.target.innerText = "Editar Clase";
+        const claseActualizada = {
+          id: clases.id,
+          tema: temaClase,
+          nombre: nombreClase,
+          autor: clases.autor,
+          codigo: clases.codigo,
+          estado: estadoClase,
+          fechaCreacion: clases.fechaCreacion
+        };
 
+        try {
+          const response = await fetch(`https://localhost:7248/api/Clases/${clases.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(claseActualizada),
+          });
+          if (response.ok) {
+            alert("Clase actualizada correctamente");
+            navigate("/menu");
+          } else {
+            alert("Error al actualizar la clase");
+          }
+        } catch (error) {
+          alert("Error al actualizar");
+        }
+      }
+    }
+    setIsEditing(!isEditing);
+  }
+
+  const ValidarEnBlanco = () => {
+    if (nombreClase.trim() === "" || temaClase.trim() === "") {
+      return false;
+    }
+    return true;
+  }
+
+  const handleInputChange = (event) => {
+    switch (event.target.name) {
+      case "nombreClase":
+        setNombreClase(event.target.value);
+        break;
+      case "temaClase":
+        setTemaClase(event.target.value);
+        break;
+    }
   }
 
   const EliminarClase = async () => {
@@ -59,10 +119,16 @@ export default function Clases() {
       <button className="inicio-button" onClick={handleInicio}> Volver Menu </button>
       <div className="clasesapi-list">
         <div key={clases.id} className="clasesapi-card">
-          <h2 className="clasesapi-nombre">{clases.nombre}</h2>
-          <p className="clasesapi-info">
-            <strong>Tema:</strong> {clases.tema}
-          </p>
+          <input type="text" className="clasesapi-nombre" 
+            value={nombreClase} disabled={isEditing} name="nombreClase"
+            onChange={handleInputChange}/>
+          <div>
+            <strong>Tema:</strong>
+            <input type="text" className="clasesapi-info" 
+              value={temaClase} disabled={isEditing} name="temaClase"
+              onChange={handleInputChange}/>
+          </div>
+          
           <p className="clasesapi-info">
             <strong>Autor:</strong> {clases.autor}
           </p>
@@ -75,8 +141,8 @@ export default function Clases() {
           <p className="clasesapi-info">
             <strong>Fecha:</strong> {new Date(clases.fechaCreacion).toLocaleDateString()}
           </p>
+          <button className="clasesapi-button" onClick={EliminarClase}>Eliminar Clase</button>
           <button className="clasesapi-button" name="BtnEditar" onClick={EditarClase}>Editar Clase</button>
-          <button className="clasesapi-button" name="BtnEliminar" onClick={EliminarClase}>Eliminar Clase</button>
         </div>
       </div>
     </div>

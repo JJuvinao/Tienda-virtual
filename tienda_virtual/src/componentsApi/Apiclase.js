@@ -46,14 +46,13 @@ export default function Apiclase() {
 
       /*guardar clase */
       try {
-         await fetch("https://localhost:7248/api/Clases", {
+        await fetch("https://localhost:7248/api/Clases", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(nuevaClase),
         });
-        alert("primero clase")
       } catch (error) {
         console.error("Error al enviar los datos a clase:", error);
       }
@@ -72,39 +71,38 @@ export default function Apiclase() {
     fetch("https://localhost:7248/api/Clases")
         .then((res) => res.json())
         .then((data) => {
-            setclaseupdate(data);
-            console.log("Clases actualizadas:", data);
-
-            const Claseid = data.find((clase) => clase.nombre === clasenom);
+          setclaseupdate(data);
+          console.log("Clases actualizadas:", data);
+          const Claseid = data.find((clase) => clase.nombre === clasenom);
 
             if (Claseid != null) {
-                const fecha2 = new Date().toISOString();
-                const nuevaProClase = {
-                    id_profesor: user.id,
-                    id_clase: Claseid.id,
-                    fecha_creacion: fecha2,
-                };
+              const fecha2 = new Date().toISOString();
+              const nuevaProClase = {
+                id_profesor: user.id,
+                id_clase: Claseid.id,
+                fecha_creacion: fecha2,
+              };
 
-                fetch("https://localhost:7248/api/Profe_Clase", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(nuevaProClase),
-                })
-                    .then((response) => {
-                        if (response.ok) {
-                            console.log("Clase registrada correctamente en profe-clase");
-                        } else {
-                            console.error("Error al registrar la clase en profe-clase");
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error al enviar los datos a profe-clase:", error);
-                    });
-            } else {
-                console.error("Clase no encontrada:", clasenom);
-            }
+              fetch("https://localhost:7248/api/Profe_Clase", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(nuevaProClase),
+              })
+              .then((response) => {
+                if (response.ok) {
+                  console.log("Clase registrada correctamente en profe-clase");
+                } else {
+                  console.error("Error al registrar la clase en profe-clase");
+                }
+              })
+            .catch((error) => {
+              console.error("Error al enviar los datos a profe-clase:", error);
+            });
+          } else {
+            console.error("Clase no encontrada:", clasenom);
+          }
         })
         .catch((error) => {
             console.error("Error al actualizar las clases:", error);
