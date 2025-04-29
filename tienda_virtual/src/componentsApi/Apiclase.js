@@ -5,19 +5,11 @@ import { StoreContext } from "../store/StoreProvider";
 
 export default function Apiclase() {
   const [clases, setClases] = useState([]);
-  const [nombre, setNombre] = useState("");
-  const [tema, settema] = useState("");
-  const [autor, setautor] = useState("");
-  const [codigo, setcodigo] = useState("");
   const [estado, setestado] = useState(true);
-  const [fecha, setfecha] = useState("");
   const [claseupdate,setclaseupdate] = useState([]);
   const navigate = useNavigate();
   const [store] = useContext(StoreContext);
   const { user } = store;
-
-  const [id_profe] = useState(1);
-  const [id_cla] = useState(4);
 
   useEffect(() => {
     fetch("https://localhost:7248/api/Clases")
@@ -142,7 +134,7 @@ export default function Apiclase() {
           </div>
           <div className="form-group">
             <label htmlFor="autor">Autor:</label>
-            <input type="text" id="autor" name="autor" required />
+            <input type="text" id="autor" name="autor" value={user.name} readOnly required />
           </div>
           <div className="form-group">
             <label htmlFor="codigo">Código:</label>
