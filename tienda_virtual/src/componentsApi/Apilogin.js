@@ -34,7 +34,6 @@ export default function ApiLogin() {
 
     if (usuarioEncontrado) {
       if(usuarioEncontrado.contrasena === password) {
-        alert("Usuario encontrado: " + usuarioEncontrado.nombre);
         Cargarusuario(username, usuarioEncontrado.id);
         navigate("/menu");
       }
@@ -57,7 +56,7 @@ export default function ApiLogin() {
 
   return (
     <div>
-      <h1>API Login</h1>
+      <h1>Exa-Gammer</h1>
       <button className="inicio-button" onClick={handleInicio}> Volver </button>
       <div className="form-container">
       <form id="loginForm" className="form" onSubmit={handleSubmit}>

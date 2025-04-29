@@ -69,7 +69,7 @@ export default function Apiregistro() {
 
   return (
     <div>
-      <h1>API Registro</h1>
+      <h1>Exa-Gammer</h1>
       <button className="inicio-button" onClick={handleInicio}> Volver </button>
       <div className="form-container">
         <form id="loginForm" className="form" onSubmit={handleSubmit}>

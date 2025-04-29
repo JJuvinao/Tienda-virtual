@@ -115,7 +115,7 @@ export default function Apiclase() {
 
   return (
     <div>
-      <h1>API Crear Clases</h1>
+      <h1> Crear Clases</h1>
       <button className="inicio-button" onClick={handleInicio}>
         {" "}
         Volver{" "}
