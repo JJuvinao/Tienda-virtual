@@ -46,7 +46,7 @@ export default function Apiclase() {
 
       /*guardar clase */
       try {
-         await fetch("https://localhost:7248/api/Clases", {
+        await fetch("https://localhost:7248/api/Clases", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
