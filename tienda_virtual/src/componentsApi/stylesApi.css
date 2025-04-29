@@ -474,6 +474,11 @@
   
   /* SECCIÓN PRINCIPAL */
   .home-container {
+    background-image: url('./imagen/c.png');
+    background-size: 900px 900px;
+    background-position: right; 
+    background-repeat: no-repeat; 
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -524,12 +529,12 @@
   
   /* IMAGEN */
   .image-content {
-    max-width: 50%;
+    max-width: 100%;
     text-align: center;
   }
   
   .image-content img {
-    width: 100%;
+    width: 10000px;
     max-width: 500px;
     height: auto;
   }
