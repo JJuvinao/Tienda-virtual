@@ -8,16 +8,23 @@ export default function Apiregistro() {
   const [password, setPassword] = useState("");
   const [rol, setRol] = useState("");
   const [correo, setCorreo] = useState("");
-  const  navigate = useNavigate();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("https://localhost:7248/api/Usuarios")
-      .then((res) => res.json())
-      .then((data) => setUsuarios(data))
-      .catch((error) =>
-        console.error("Error consultado al recibir usuarios", error)
+  const BuscarUser = async (username) => {
+    try {
+      const response = await fetch(
+        `https://localhost:7248/api/Usuarios/GetUsername/${username}`
       );
-  }, []);
+      if (response.ok) {
+        const data = await response.json();
+        setUsuarios(data);
+      } else {
+        console.error("Error al buscar el usuario:", response.status);
+      }
+    } catch (error) {
+      console.error("Error al buscar el usuario:", error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,50 +34,55 @@ export default function Apiregistro() {
     const rol = form.category.value;
     const correo = form.correo.value;
 
+    await BuscarUser(username);
+
     const usuarioEncontrado = usuarios.find(
-      (usuario) =>
-        usuario.nombre === username);
+      (usuario) => usuario.nombre === username
+    );
 
     if (usuarioEncontrado) {
       alert("Nombre de usuario ya existente: " + usuarioEncontrado.username);
     } else {
-        const nuevoUsuario = {
-            nombre: username,
-            contrasena: password,
-            rol: rol,
-            correo: correo,
-        };
-    
-        try {
-            const response = await fetch("https://localhost:7248/api/Usuarios", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(nuevoUsuario),
-            });
-    
-            if (response.ok) {
-            alert("Usuario registrado correctamente");
-            navigate("/login");
-            } else {
-            alert("Error al registrar el usuario");
-            }
-        } catch (error) {
-            console.error("Error al enviar los datos:", error);
-        alert("Ocurrió un error al registrar el usuario.");
+      const nuevoUsuario = {
+        nombre: username,
+        contrasena: password,
+        rol: rol,
+        correo: correo,
+      };
+
+      try {
+        const response = await fetch("https://localhost:7248/api/Usuarios", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(nuevoUsuario),
+        });
+
+        if (response.ok) {
+          alert("Usuario registrado correctamente");
+          navigate("/login");
+        } else {
+          alert("Error al registrar el usuario");
         }
+      } catch (error) {
+        console.error("Error al enviar los datos:", error);
+        alert("Ocurrió un error al registrar el usuario.");
+      }
     }
   };
 
   const handleInicio = () => {
     navigate("/");
-  }
+  };
 
   return (
     <div>
       <h1>Exa_Gammer</h1>
-      <button className="inicio-button" onClick={handleInicio}> Volver </button>
+      <button className="inicio-button" onClick={handleInicio}>
+        {" "}
+        Volver{" "}
+      </button>
       <div className="form-container">
         <form id="loginForm" className="form" onSubmit={handleSubmit}>
           <div className="form-group">
@@ -83,7 +95,11 @@ export default function Apiregistro() {
           </div>
           <div className="form-group">
             <label htmlFor="category">Rol:</label>
-            <select id="category" name="category" required className="form-select"
+            <select
+              id="category"
+              name="category"
+              required
+              className="form-select"
             >
               <option value="rol">Selecionar su rol</option>
               <option value="Profesor">Profesor</option>
