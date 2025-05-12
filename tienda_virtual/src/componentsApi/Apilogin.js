@@ -4,72 +4,89 @@ import { useNavigate } from "react-router-dom";
 import { types } from "../store/StoreReducer";
 import { StoreContext } from "../store/StoreProvider";
 
-
 export default function ApiLogin() {
-
-  const [usuarios, setUsuarios] = useState([]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const  navigate = useNavigate();
-
+  const navigate = useNavigate();
   const [store, dispatch] = useContext(StoreContext);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = store;
 
-
-  useEffect(() => {
-    fetch("https://localhost:7248/api/Usuarios")
-    .then((res) => res.json())
-    .then((data) => setUsuarios(data))
-    .catch((error) => console.error("Error consultado al recibir usuarios", error));
-  }, []);
-
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const form = event.target;
-    const username = form.username.value;
-    const password = form.password.value;
 
-    const usuarioEncontrado = usuarios.find((usuario) => usuario.nombre === username);
+    const Usuario = {
+      Nombre: form.username.value,
+      Contrasena: form.password.value,
+      Rol: "Usuario",
+      Correo: "temporal@ejemplo.com",
+    };
 
-    if (usuarioEncontrado) {
-      if(usuarioEncontrado.contrasena === password) {
-        Cargarusuario(username, usuarioEncontrado.id);
+    try {
+      const response = await fetch(
+        "https://localhost:7248/api/Usuarios/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Usuario),
+        }
+      );
+
+      if (response.ok) {
+        const usuarioEncontrado = await response.json();
+        Cargarusuario(usuarioEncontrado.nombre, usuarioEncontrado.id);
         navigate("/menu");
+      } else if (response.status === 401) {
+        const errorMessage = await response.text();
+        alert(errorMessage);
+      } else if (response.status === 500) {
+        const errorMessage = await response.text();
+        console.log("Error 500:", errorMessage);
+        alert("Error en la solicitud: " + errorMessage);
+      } else {
+        alert("Error en el servidor. Intenta de nuevo.");
+        console.log("Error en el servidor:", response.status, Usuario.Nombre);
       }
-      else {
-        alert("Contraseña incorrecta");
-      }
-    } else {
-      alert("Usuario no encontrado");
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+      alert("No se pudo conectar con el servidor.");
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleInicio = () => {
     navigate("/");
-  }
+  };
 
-  const Cargarusuario = (username,id) => {
+  const Cargarusuario = (username, id) => {
     const user = { name: username, id: id };
-    dispatch({type: types.SET_USER, payload: user});
-  }
+    dispatch({ type: types.SET_USER, payload: user });
+  };
 
   return (
     <div>
-      <h1>Exa-Gammer</h1>
-      <button className="inicio-button" onClick={handleInicio}> Volver </button>
+      <h1>Exa_Gammer</h1>
+      <button className="inicio-button" onClick={handleInicio}>
+        {" "}
+        Volver{" "}
+      </button>
       <div className="form-container">
-      <form id="loginForm" className="form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <button type="submit" className="form-button">Login</button>
-      </form>
+        <form id="loginForm" className="form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <button type="submit" className="form-button" disabled={isLoading}>
+            {isLoading ? "Cargando..." : "Iniciar Sesión"}
+          </button>
+        </form>
       </div>
     </div>
   );
